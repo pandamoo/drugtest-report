@@ -1,0 +1,3276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Portfolio Vault</title>
+    <!-- Plus Jakarta Sans & JetBrains Mono for Premium UI/UX feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;550;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Premium Sophisticated Zinc Dark Theme */
+            --bg-main: #09090b;       /* Zinc 950 */
+            --bg-card: #141416;       /* Zinc 900 */
+            --bg-card-hover: #1c1c1f;  /* Zinc 850 */
+            --bg-surface: #27272a;    /* Zinc 800 */
+            --border: #222226;        /* Subtle divider */
+            --border-hover: #3f3f46;  /* High contrast divider */
+            --text-primary: #f4f4f5;  /* Zinc 100 */
+            --text-secondary: #a1a1aa;/* Zinc 400 */
+            --text-muted: #71717a;    /* Zinc 500 */
+            
+            /* High Fidelity Branding Accents */
+            --primary: #3b82f6;       /* Electric Blue */
+            --primary-hover: #1d4ed8;
+            --primary-glow: rgba(59, 130, 246, 0.15);
+            --accent: #c084fc;        /* Amethyst Purple */
+            --accent-glow: rgba(192, 132, 252, 0.15);
+            
+            /* Dynamic Module Categorizations */
+            --category-gaming: #fbbf24; /* Amber 400 */
+            --category-gaming-bg: rgba(251, 191, 36, 0.08);
+            --category-gaming-hover: rgba(251, 191, 36, 0.15);
+            
+            --category-movies: #22d3ee; /* Cyan 400 */
+            --category-movies-bg: rgba(34, 211, 238, 0.08);
+            --category-movies-hover: rgba(34, 211, 238, 0.15);
+            
+            --category-books: #f472b6;  /* Pink 400 */
+            --category-books-bg: rgba(244, 114, 182, 0.08);
+            --category-books-hover: rgba(244, 114, 182, 0.15);
+            
+            --category-general: #34d399;/* Emerald 400 */
+            --category-general-bg: rgba(52, 211, 153, 0.08);
+            --category-general-hover: rgba(52, 211, 153, 0.15);
+            
+            /* Aesthetic Assets Specs */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+            --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 4px 12px -1px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Base Resets */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(192, 132, 252, 0.03) 0%, transparent 40%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        /* Customize Sleek Scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-main);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-hover);
+            border-radius: var(--radius-sm);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        /* App Main Shell Container */
+        .app-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 2rem 1.75rem 5rem 1.75rem;
+        }
+
+        /* Top Header Brand Elements */
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.75rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .brand-logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1.15rem;
+        }
+
+        .brand-logo-glow {
+            width: 46px;
+            height: 46px;
+            border-radius: var(--radius-md);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .brand-logo-glow svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: white;
+            stroke-width: 2.2;
+        }
+
+        .brand-text h1 {
+            font-size: 1.65rem;
+            font-weight: 800;
+            letter-spacing: -0.035em;
+            background: linear-gradient(to right, #ffffff 30%, #a1a1aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-text p {
+            font-size: 0.825rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            word-spacing: 0.05em;
+        }
+
+        /* Global Header action triggers styling */
+        .header-actions {
+            display: flex;
+            gap: 0.85rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background-color: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.65rem 1.25rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .btn:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-1.5px);
+            background-color: var(--bg-card-hover);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #1d4ed8);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            box-shadow: 0 6px 18px rgba(59, 130, 246, 0.4);
+            color: white;
+        }
+
+        .btn-accent {
+            background-color: rgba(9, 9, 11, 0.6);
+            border: 1px dashed var(--border-hover);
+            color: var(--text-secondary);
+        }
+
+        .btn-accent:hover {
+            color: var(--text-primary);
+            border-color: var(--text-secondary);
+        }
+
+        /* Stats Cards Dashboard elements */
+        .stats-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2.75rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, var(--bg-card) 0%, rgba(20, 20, 22, 0.7) 100%);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.25rem 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--stat-accent, var(--primary)), transparent);
+            opacity: 0.45;
+        }
+
+        .stat-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--stat-accent, var(--primary));
+        }
+
+        .stat-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .stat-info .stat-val {
+            font-size: 1.35rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+        }
+
+        .stat-info .stat-label {
+            font-size: 0.725rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        /* Bulk Upload Target & Zone elements */
+        .upload-section {
+            background-color: rgba(20, 20, 22, 0.35);
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2.25rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 2.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-section:hover, .upload-section.dragover {
+            border-color: var(--primary);
+            background-color: rgba(59, 130, 246, 0.02);
+        }
+
+        .upload-section.dragover::after {
+            content: 'Drop to Import Immediately!';
+            position: absolute;
+            inset: 0;
+            background: rgba(9, 9, 11, 0.94);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: var(--font-sans);
+        }
+
+        .upload-icon {
+            width: 58px;
+            height: 58px;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .upload-section:hover .upload-icon {
+            color: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+            transform: scale(1.05);
+        }
+
+        .upload-icon svg {
+            width: 26px;
+            height: 26px;
+        }
+
+        .upload-text h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+            letter-spacing: -0.015em;
+        }
+
+        .upload-text p {
+            font-size: 0.825rem;
+            color: var(--text-muted);
+        }
+
+        .hidden-file-input {
+            display: none;
+        }
+
+        /* Sticky Navigation & Filter Bar */
+        .filter-sticky-bar {
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            background: rgba(9, 9, 11, 0.72);
+            backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-lg);
+            padding: 0.85rem 1.25rem;
+            margin-bottom: 2.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            box-shadow: var(--shadow-lg), 0 0 30px rgba(0, 0, 0, 0.4);
+            flex-wrap: wrap;
+            transition: var(--transition);
+        }
+
+        /* Category Filter Pills */
+        .category-pills {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            background-color: rgba(255, 255, 255, 0.02);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            font-size: 0.825rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            user-select: none;
+        }
+
+        .pill:hover {
+            color: var(--text-primary);
+            border-color: var(--border-hover);
+            background-color: rgba(255, 255, 255, 0.04);
+        }
+
+        .pill .pill-count {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-family: var(--font-sans);
+            font-weight: 800;
+            color: var(--text-muted);
+        }
+
+        .pill.active {
+            color: var(--active-pill-color, var(--text-primary));
+            background: var(--active-pill-bg, var(--bg-surface));
+            border-color: var(--active-pill-border, var(--border-hover));
+            box-shadow: 0 4px 10px var(--active-pill-glow, rgba(255, 255, 255, 0.03));
+        }
+
+        .pill.active .pill-count {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--bg-main);
+            border-color: transparent;
+        }
+
+        /* Search & Sort Group elements */
+        .controls-group {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            flex-grow: 1;
+            max-width: 520px;
+            width: 100%;
+        }
+
+        .search-box {
+            position: relative;
+            flex-grow: 1;
+        }
+
+        .search-inner {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-icon-svg {
+            position: absolute;
+            left: 0.85rem;
+            pointer-events: none;
+            width: 16px;
+            height: 16px;
+            color: var(--text-muted);
+        }
+
+        .search-input {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0.55rem 2.25rem 0.55rem 2.25rem;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            background-color: rgba(9, 9, 11, 0.85);
+            border-color: var(--primary);
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.15);
+        }
+
+        .search-clear-btn {
+            position: absolute;
+            right: 0.85rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2px;
+            border-radius: 50%;
+        }
+
+        .search-clear-btn:hover {
+            color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .search-clear-btn svg {
+            width: 13px;
+            height: 13px;
+        }
+
+        .sort-select {
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0.55rem 1rem;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 550;
+            cursor: pointer;
+            transition: var(--transition);
+            outline: none;
+            min-width: 160px;
+        }
+
+        .sort-select:focus {
+            border-color: var(--primary);
+        }
+
+        .sort-select option {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+        }
+
+        /* Card Elements & Columns */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--hover-card-border, var(--primary));
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.45), 0 0 20px var(--hover-card-glow, rgba(59, 130, 246, 0.15));
+        }
+
+        /* Geometric gradient header container */
+        .card-thumbnail-header {
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 1px solid var(--border);
+            background-color: #0b0b0c;
+        }
+
+        .card-svg-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .card:hover .card-svg-bg {
+            transform: scale(1.05);
+        }
+
+        /* Card Inside Contents Layout */
+        .card-body {
+            padding: 1.35rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-meta-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.85rem;
+        }
+
+        .card-badge {
+            font-size: 0.725rem;
+            font-weight: 700;
+            padding: 0.25rem 0.65rem;
+            border-radius: var(--radius-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--badge-color, var(--primary));
+            background: var(--badge-bg, rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .card-size {
+            font-size: 0.725rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 750;
+            line-height: 1.35;
+            margin-bottom: 0.65rem;
+            color: var(--text-primary);
+            letter-spacing: -0.015em;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-snippet {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 1.35rem;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-footer {
+            border-top: 1px solid var(--border);
+            padding-top: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+
+        .card-filename {
+            font-size: 0.725rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 68%;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.45rem;
+        }
+
+        .card-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 5px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .card-btn:hover {
+            color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.04);
+        }
+
+        .card-btn-delete:hover {
+            color: #ef4444;
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        .card-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Empty Area Layout View */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 4.5rem 2rem;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .empty-illustration {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .empty-illustration svg {
+            width: 44px;
+            height: 44px;
+        }
+
+        .empty-state h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            max-width: 420px;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        /* Fullscreen Lightbox Overlay Modal Elements */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background-color: rgba(9, 9, 11, 0.82);
+            backdrop-filter: blur(16px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-container {
+            width: 100%;
+            max-width: 940px;
+            max-height: 85vh;
+            background-color: #0c0c0e;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg), 0 30px 60px rgba(0, 0, 0, 0.55);
+            transform: scale(0.97);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(20, 20, 22, 0.4);
+        }
+
+        .modal-title-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            overflow: hidden;
+            flex-grow: 1;
+        }
+
+        .modal-abbreviation {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--tab-head-color, var(--primary));
+            background: var(--tab-head-bg, rgba(255,255,255,0.02));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            flex-shrink: 0;
+        }
+
+        .modal-title-details h2 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            line-height: 1.35;
+            color: var(--text-primary);
+            letter-spacing: -0.025em;
+        }
+
+        .modal-title-details p {
+            font-size: 0.725rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .modal-close-group {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .modal-close-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .modal-close-btn:hover {
+            color: var(--text-primary);
+            background-color: var(--border-hover);
+        }
+
+        .modal-close-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Modal Content Reading Area */
+        .modal-scrollable-body {
+            padding: 2.5rem;
+            overflow-y: auto;
+            flex-grow: 1;
+            font-size: 0.975rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            scrollbar-width: thin;
+        }
+
+        /* Luxurious High-Contrast Light Paper Option */
+        .modal-scrollable-body.reading-contrast-mode {
+            background-color: #f7f7f8;
+            color: #1c1917; /* Off Black */
+        }
+
+        .modal-scrollable-body.reading-contrast-mode p {
+            color: #27272a;
+        }
+
+        .modal-scrollable-body.reading-contrast-mode blockquote {
+            background-color: rgba(0, 0, 0, 0.02);
+            border-left-color: var(--primary);
+            color: #4b5563;
+        }
+
+        .modal-scrollable-body.reading-contrast-mode .table-container {
+            background-color: #f1f1f2;
+            border-color: #d4d4d8;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .modal-scrollable-body.reading-contrast-mode table {
+            color: #1f2937;
+        }
+
+        .modal-scrollable-body.reading-contrast-mode th {
+            background-color: #e4e4e7;
+            color: #111827;
+            border-bottom-color: #cbd5e1;
+        }
+
+        .modal-scrollable-body.reading-contrast-mode td {
+            border-bottom-color: #e4e4e7;
+            color: #374151;
+        }
+
+        .modal-scrollable-body.reading-contrast-mode tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.015);
+        }
+
+        /* BBCode Parsing Native Element styles */
+        .text-center {
+            text-align: center;
+        }
+
+        .bbcode-subtitle {
+            font-size: 1.25rem;
+            font-weight: 750;
+            color: var(--accent);
+            border-bottom: 1px dashed var(--border-hover);
+            padding-bottom: 0.35rem;
+            margin-top: 1.85rem;
+            margin-bottom: 0.85rem;
+            display: block;
+            letter-spacing: -0.015em;
+        }
+        .modal-scrollable-body.reading-contrast-mode .bbcode-subtitle {
+            color: #7c3aed;
+            border-bottom-color: #cbd5e1;
+        }
+
+        /* Admin-restricted elements view transitions rules */
+        .admin-only {
+            display: none !important;
+        }
+        body.admin-logged-in .admin-only {
+            display: inline-flex !important;
+        }
+        body.admin-logged-in div.admin-only.upload-section {
+            display: block !important;
+        }
+        body.admin-logged-in button.admin-only {
+            display: flex !important;
+        }
+
+        blockquote {
+            border-left: 4px solid var(--accent);
+            background: rgba(192, 132, 252, 0.03);
+            padding: 1.25rem 1.5rem;
+            margin: 1.75rem 0;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .bbcode-link {
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: 1px dashed var(--primary);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .bbcode-link:hover {
+            color: #60a5fa;
+            border-bottom-style: solid;
+        }
+
+        /* Dynamic Structured Tables in Viewer */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            margin: 1.85rem 0;
+            background-color: rgba(9, 9, 11, 0.4);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.35);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            min-width: 600px;
+        }
+
+        th {
+            background-color: rgba(20, 20, 22, 0.85);
+            color: var(--text-primary);
+            font-weight: 700;
+            padding: 12px 18px;
+            border-bottom: 2px solid var(--border);
+            text-transform: uppercase;
+            font-size: 0.725rem;
+            letter-spacing: 0.08em;
+        }
+
+        td {
+            padding: 11px 18px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-weight: 400;
+            vertical-align: middle;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.012);
+        }
+
+        tr:hover {
+            background-color: rgba(59, 130, 246, 0.03);
+        }
+
+        /* Bullets lists layout */
+        .modal-scrollable-body ul, .modal-scrollable-body ol {
+            margin: 1rem 0 1.5rem 1.15rem;
+            color: inherit;
+        }
+
+        .modal-scrollable-body li {
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-scrollable-body p {
+            margin-bottom: 1.25rem;
+        }
+
+        /* Modal Actions Footer styling */
+        .modal-footer {
+            padding: 1.15rem 1.5rem;
+            border-top: 1px solid var(--border);
+            background-color: rgba(12, 12, 14, 0.95);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+        }
+
+        .modal-left-meta {
+            font-size: 0.775rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            flex-wrap: wrap;
+        }
+
+        .modal-right-actions {
+            display: flex;
+            gap: 0.65rem;
+            flex-wrap: wrap;
+        }
+
+        /* Slide-out Manual Creator Drawer styles */
+        .drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(9, 9, 11, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1010;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .drawer-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            max-width: 580px;
+            background-color: #0c0c0e;
+            border-left: 1px solid var(--border);
+            z-index: 1020;
+            transform: translateX(100%);
+            transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: -15px 0 45px rgba(0, 0, 0, 0.65);
+        }
+
+        .drawer-wide {
+            max-width: 1180px !important;
+        }
+
+        /* Live Dual-Pane Composer Split System */
+        .composer-split-container {
+            display: flex;
+            gap: 1.75rem;
+            height: 100%;
+            align-items: stretch;
+        }
+
+        .editor-pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.15rem;
+            min-width: 0;
+        }
+
+        .preview-pane {
+            flex: 1.15;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid var(--border);
+            padding-left: 1.75rem;
+            min-width: 0;
+            height: auto;
+        }
+
+        .preview-header-label {
+            font-size: 0.775rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .preview-scroll-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            background-color: #08080a;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            font-size: 0.95rem;
+            line-height: 1.75;
+            color: var(--text-primary);
+            max-height: calc(100vh - 170px);
+            scrollbar-width: thin;
+        }
+
+        /* Category Manager layout tables styles */
+        .cat-manager-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.65rem 0.85rem;
+            border: 1px solid var(--border);
+            gap: 1rem;
+            background-color: rgba(255,255,255,0.01);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.5rem;
+        }
+
+        .cat-manager-name {
+            font-weight: 650;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+        }
+
+        .cat-manager-posts-count {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 800;
+            background: rgba(255,255,255,0.04);
+            padding: 2px 7px;
+            border-radius: 4px;
+            letter-spacing: 0.05em;
+        }
+
+        .cat-manager-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .posts-assigner-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            max-height: 280px;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0.85rem;
+            background: rgba(9, 9, 11, 0.4);
+            scrollbar-width: thin;
+        }
+
+        .post-assign-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .post-assign-title {
+            font-size: 0.825rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 65%;
+        }
+
+        .post-assign-select {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 0.775rem;
+            font-weight: 600;
+            padding: 0.3rem 0.5rem;
+            outline: none;
+            cursor: pointer;
+            width: 145px;
+        }
+
+        .post-assign-select:focus {
+            border-color: var(--primary);
+        }
+
+        .drawer.active {
+            transform: translateX(0);
+        }
+
+        .drawer-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(20, 20, 22, 0.4);
+        }
+
+        .drawer-header h2 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .drawer-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .form-label {
+            font-size: 0.775rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-input {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.012);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0.65rem 0.85rem;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.875rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: rgba(9, 9, 11, 0.55);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 250px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            line-height: 1.55;
+        }
+
+        /* Markup Composer Tag Helper Tools */
+        .tag-helper-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            background-color: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border);
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .tag-btn {
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 0.35rem 0.65rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tag-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--border-hover);
+            background-color: rgba(255, 255, 255, 0.04);
+        }
+
+        .drawer-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border);
+            background-color: rgba(12, 12, 14, 0.95);
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+        }
+
+        /* Toast notifications system panels */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 1200;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-width: 440px;
+            width: calc(100% - 3rem);
+        }
+
+        .toast {
+            background-color: #0c0c0e;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            border-radius: var(--radius-md);
+            padding: 0.95rem 1.25rem;
+            box-shadow: var(--shadow-lg), 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            animation: toast-slide-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            position: relative;
+        }
+
+        .toast-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .toast-content svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .toast-message {
+            font-size: 0.85rem;
+            font-weight: 550;
+        }
+
+        .toast-undo-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.775rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: inherit;
+            letter-spacing: 0.05em;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .toast-undo-btn:hover {
+            color: #60a5fa;
+            background: rgba(59, 130, 246, 0.08);
+        }
+
+        .toast-close-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toast-close-btn:hover {
+            color: var(--text-primary);
+        }
+
+        @keyframes toast-slide-in {
+            from {
+                transform: translateY(20px) scale(0.96);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Viewport responsive breakpoints layout */
+        @media (max-width: 900px) {
+            .filter-sticky-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .controls-group {
+                max-width: 100%;
+            }
+            .modal-container {
+                max-height: 90vh;
+            }
+            .modal-scrollable-body {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .app-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header-actions {
+                width: 100%;
+            }
+            .header-actions .btn {
+                flex-grow: 1;
+                justify-content: center;
+            }
+            .pill {
+                flex-grow: 1;
+                justify-content: center;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .drawer {
+                max-width: 100%;
+            }
+            .modal-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .modal-right-actions {
+                width: 100%;
+            }
+            .modal-right-actions .btn {
+                flex-grow: 1;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- App Main Container -->
+    <div class="app-container">
+
+        <!-- Header Structure -->
+        <header class="app-header">
+            <div class="brand-logo-section">
+                <div class="brand-logo-glow">
+                    <!-- Secure Folder Shield Custom SVG Emblem -->
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <circle cx="12" cy="11" r="2"/>
+                        <path d="M12 13v3"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <div style="display:flex; align-items:center; gap:0.65rem;">
+                        <h1>Review Portfolio Vault</h1>
+                        <button class="btn" id="admin-toggle-btn" style="padding: 0.35rem 0.75rem; font-size: 0.75rem; border-radius: 20px; font-weight:700; height:fit-content; background: rgba(255,255,255,0.02);" title="Toggle Admin Mode to Edit/Upload reviews">
+                            🔒 Reader Mode
+                        </button>
+                    </div>
+                    <p>Sophisticated dark-mode console for markdown-annotated & BBCode local writeups.</p>
+                </div>
+            </div>
+
+            <!-- Global Action Triggers -->
+            <div class="header-actions">
+                <button class="btn btn-accent admin-only" id="trigger-categories-btn" style="border-color: rgba(192, 132, 252, 0.35);">
+                    🏷️ Manage Categories
+                </button>
+                <button class="btn btn-accent admin-only" id="trigger-draft-btn">
+                    <svg style="width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2.2;" viewBox="0 0 24 24">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                    Compose Review ✍️
+                </button>
+                <button class="btn btn-primary admin-only" id="trigger-upload-btn">
+                    <svg style="width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2.2;" viewBox="0 0 24 24">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    Import Writeups 🗃️
+                </button>
+            </div>
+        </header>
+
+        <!-- KPI Statistics Dashboard Row -->
+        <section class="stats-dashboard">
+            <div class="stat-card" style="--stat-accent: #3b82f6;">
+                <div class="stat-icon">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                        <line x1="12" y1="11" x2="12" y2="17"></line>
+                        <line x1="9" y1="14" x2="15" y2="14"></line>
+                    </svg>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-val" id="kpi-total-files">0</div>
+                    <div class="stat-label">Total Archived</div>
+                </div>
+            </div>
+            
+            <div class="stat-card" style="--stat-accent: #c084fc;">
+                <div class="stat-icon">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-val" id="kpi-categories">0</div>
+                    <div class="stat-label">Active Groups</div>
+                </div>
+            </div>
+
+            <div class="stat-card" style="--stat-accent: #f472b6;">
+                <div class="stat-icon">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-val" id="kpi-words">0</div>
+                    <div class="stat-label">Word Count</div>
+                </div>
+            </div>
+
+            <div class="stat-card" style="--stat-accent: #34d399;">
+                <div class="stat-icon">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                        <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"></path>
+                    </svg>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-val" id="kpi-storage">0 KB</div>
+                    <div class="stat-label">Vault Weight</div>
+                </div>
+            </div>
+        </section>
+        <!-- Interactive Drag & Drop Area -->
+        <div class="upload-section admin-only" id="drop-zone-area">
+            <div class="upload-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+                </svg>
+            </div>
+            <div class="upload-text">
+                <h3>Drag & Drop BBCode or TXT files here</h3>
+                <p>Verify multiple local files instantly. We parse metadata from filenames and text bodies automatically.</p>
+            </div>
+            <input type="file" id="bulk-file-input" class="hidden-file-input" accept=".txt,.bbcode" multiple>
+        </div>
+
+        <!-- Sticky Navigation Filter Box -->
+        <nav class="filter-sticky-bar">
+            <!-- Dynamic Category Pills -->
+            <div class="category-pills" id="category-pills-container">
+                <!-- Dynamically Rendered Category Pills go here -->
+            </div>
+
+            <!-- Consolidated Search/Sort Controls -->
+            <div class="controls-group">
+                <div class="search-box">
+                    <div class="search-inner">
+                        <svg class="search-icon-svg" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="search-bar" class="search-input" placeholder="Search title or text body...">
+                        <button class="search-clear-btn" id="search-clear-trigger">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <select id="sort-cards-select" class="sort-select" title="Sort Reviews">
+                    <option value="date-desc">Added (Newest)</option>
+                    <option value="title-asc">Title (A-Z)</option>
+                    <option value="title-desc">Title (Z-A)</option>
+                    <option value="size-desc">Size (Largest)</option>
+                    <option value="size-asc">Size (Smallest)</option>
+                </select>
+            </div>
+        </nav>
+
+        <!-- Main Card Dashboard Grid -->
+        <main class="cards-grid" id="main-cards-dashboard">
+            <!-- Dynamically Rendered review cards will build here -->
+        </main>
+
+        <!-- Dynamic Empty state layout -->
+        <div class="empty-state" id="empty-state-panel">
+            <div class="empty-illustration">
+                <svg fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <h2>Vault Indexing Empty</h2>
+            <p>Upload files, compose manual reviews, or restore factory default mock-ups to test out immediately.</p>
+            <button class="btn btn-primary" id="restore-presets-btn">⚡ Restore Preset Reviews</button>
+        </div>
+
+    </div>
+    <!-- Lightbox Fullscreen Viewer Modal -->
+    <div class="modal" id="review-viewer-modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title-area">
+                    <div class="modal-abbreviation" id="modal-badge-token">W3</div>
+                    <div class="modal-title-details">
+                        <h2 id="modal-review-title">Liquid Review Display</h2>
+                        <p id="modal-review-filename">filename.bbcode</p>
+                    </div>
+                </div>
+                <div class="modal-close-group">
+                    <button class="modal-close-btn" id="modal-close-cross" title="Close Overlay (ESC)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="modal-scrollable-body" id="modal-styled-content-box">
+                <!-- Automatically transformed HTML content inserts here -->
+            </div>
+
+            <!-- Modal Actions Footer -->
+            <footer class="modal-footer">
+                <div class="modal-left-meta">
+                    <span id="modal-footer-category-tag" class="card-badge">Gaming</span>
+                    <span id="modal-footer-size-tag">Length: 0 B</span>
+                    <span id="modal-footer-date-tag">Added: 6/27/2026</span>
+                </div>
+                <div class="modal-right-actions">
+                    <button class="btn btn-accent" id="modal-copy-bbcode" title="Copy raw BBcode content to Clipboard">
+                        📋 Copy Raw BBCode
+                    </button>
+                    <button class="btn btn-accent" id="modal-reader-theme" title="Toggle Light Paper Panel View">
+                        💡 Contrast Light
+                    </button>
+                    <button class="btn btn-accent admin-only" id="modal-edit-review" title="Edit this review immediately">
+                        ✏️ Edit Review
+                    </button>
+                    <button class="btn btn-primary" id="modal-download-file" title="Download writeup as local text file">
+                        💾 Download File
+                    </button>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <!-- Right-Side Manual Composer Drawer Panel -->
+    <div class="drawer-overlay" id="drawer-overlaybg"></div>
+    <div class="drawer" id="manual-creator-drawer">
+        <div class="drawer-header">
+            <h2>Compose New Review ✍️</h2>
+            <button class="modal-close-btn" id="drawer-close-cross">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="drawer-body">
+            <div class="composer-split-container">
+                <!-- Left Column: BBCode Monospace Editor -->
+                <div class="editor-pane">
+                    <div class="form-group">
+                        <label class="form-label">Review Title</label>
+                        <input type="text" id="comp-title" class="form-input" placeholder="e.g. Elden Ring Shadow of the Erdtree">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Category Override</label>
+                            <select id="comp-category" class="form-input" title="Category override selection">
+                                <option value="Gaming">Gaming 🎮</option>
+                                <option value="Movies">Movies & Cinema 🎬</option>
+                                <option value="Books">Books & Novels 📚</option>
+                                <option value="General">General / Custom 📝</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Filename Identifier</label>
+                            <input type="text" id="comp-filename" class="form-input" placeholder="elden_ring_review.bbcode">
+                        </div>
+                    </div>
+
+                    <!-- Custom Product Thumbnail configuration inputs (Base64 file or external url) -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Thumbnail URL (External hotlink)</label>
+                            <input type="text" id="comp-thumb-url" class="form-input" placeholder="e.g. https://domain.com/cover.jpg">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">or Upload Graphic Cover 🖼️</label>
+                            <input type="file" id="comp-thumb-file" class="form-input" accept="image/*" style="padding:0.45rem; font-size:0.75rem;">
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="flex-grow:1; display:flex; flex-direction:column; gap:0.45rem;">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <label class="form-label">BBCode Annotations Editor</label>
+                            <span style="font-size:0.7rem; color: var(--text-muted); font-weight:700;">HIGHLIGHT PHRASE & WRAP IT</span>
+                        </div>
+                        
+                        <!-- Easy syntax formatting actions toolbar -->
+                        <div class="tag-helper-tools">
+                            <button class="tag-btn" onclick="wrapTextSelection('[b]', '[/b]')">[b] Bold</button>
+                            <button class="tag-btn" onclick="wrapTextSelection('[i]', '[/i]')">[i] Italic</button>
+                            <button class="tag-btn" onclick="wrapTextSelection('[u]', '[/u]')">[u] Underline</button>
+                            <button class="tag-btn" onclick="wrapTextSelection('[subtitle]', '[/subtitle]')">[subtitle] Subheader</button>
+                            <button class="tag-btn" onclick="wrapTextSelection('[center]', '[/center]')">Center</button>
+                            <button class="tag-btn" onclick="wrapTextSelection('[color=#3b82f6]', '[/color]')">Blue Accent</button>
+                            <button class="tag-btn" onclick="wrapTextSelection('[size=5]', '[/size]')">Large Header</button>
+                            <button class="tag-btn" onclick="wrapTextSelection('[quote]', '[/quote]')">Quote block</button>
+                            <button class="tag-btn" onclick="insertBBCodeSnippet('table')">Insertion Grid 📋</button>
+                            <button class="tag-btn" onclick="insertBBCodeSnippet('list')">Bullet Point List 🧾</button>
+                        </div>
+
+                        <textarea id="comp-content" class="form-input" style="flex-grow:1; min-height:360px;" placeholder="Type review here, incorporating highlighted BBCode formatting tags..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Right Column: Real-time Compiled HTML Preview -->
+                <div class="preview-pane">
+                    <div class="preview-header-label">
+                        <svg style="width:16px; height:16px; color:var(--primary);" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        Live Visual Preview Pane
+                    </div>
+                    <div class="preview-scroll-container" id="comp-live-preview">
+                        <!-- Instantly parsed HTML updates here in real-time -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="drawer-footer">
+            <button class="btn btn-accent" id="drawer-cancel-btn">Discard Draft</button>
+            <button class="btn btn-primary" id="drawer-save-btn">Store & File writeup</button>
+        </div>
+    </div>
+
+    <!-- Dedicated Category Manager Drawer Panel (Only for admins) -->
+    <div class="drawer" id="categories-manager-drawer" style="max-width: 580px;">
+        <div class="drawer-header">
+            <h2>Configure Categories 🏷️</h2>
+            <button class="modal-close-btn" id="cat-drawer-close-cross" title="Close categories panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="drawer-body">
+            <!-- Part 1: Add new standard category -->
+            <div class="form-group" style="border-bottom: 1px solid var(--border); padding-bottom: 1.25rem;">
+                <label class="form-label" style="margin-bottom:0.25rem;">Add New Category</label>
+                <div style="display:flex; gap:0.5rem;">
+                    <input type="text" id="new-cat-input" class="form-input" placeholder="e.g. Games 🎮, Cinema 🎬, Books 📚, Tech 💻">
+                    <button class="btn btn-primary" id="add-cat-btn" style="padding:0rem 1.15rem; width:120px; justify-content:center; font-size:0.8rem; font-weight:700;">Add</button>
+                </div>
+            </div>
+
+            <!-- Part 2: Edit categories lists -->
+            <div class="form-group" style="border-bottom: 1px solid var(--border); padding-bottom: 1.25rem;">
+                <label class="form-label" style="margin-bottom:0.5rem;">Active Categories</label>
+                <div id="cat-manager-list" style="max-height: 250px; overflow-y:auto; scrollbar-width:thin; display:flex; flex-direction:column; gap:0.45rem;">
+                    <!-- Filled dynamically by Javascript with rename/delete tools -->
+                </div>
+            </div>
+
+            <!-- Part 3: Map posts to categories directly -->
+            <div class="form-group">
+                <label class="form-label" style="margin-bottom:0.25rem;">Assign Review Posts to Categories</label>
+                <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:0.75rem; line-height:1.45;">Re-assign category values in real-time. Changes apply to the cached dashboard instantly.</p>
+                <div class="posts-assigner-list" id="posts-assigner-list-container">
+                    <!-- Dynamic Rows contain Review title, category selection dropdown -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Toast notifications container wrapper -->
+    <div class="toast-container" id="toast-wrapper"></div>
+
+    <script>
+        const FACTORY_DEFAULT_REVIEWS = [
+            {
+                id: "mock-witcher-3-game",
+                filename: "gaming_the_witcher_3_wild_hunt_review.bbcode",
+                title: "The Witcher 3: Wild Hunt Review",
+                category: "Gaming",
+                content: `[b][center][size=6][color=#fbbf24]THE WITCHER 3: WILD HUNT[/color][/size]\n[size=3][i]An Open-World RPG Masterpiece[/i][/size][/center][/b]\n\n[quote]“The world is not slide-ruled into good and evil. It is an infinite web of shades of grey.” — Geralt of Rivia[/quote]\n\nReleased by CD Projekt Red, [b]The Witcher 3: Wild Hunt[/b] stands as one of the peak triumphs in gaming history. From its deep character arcs to its complex narrative branches, it sets an unparalleled standard for immersive storytelling. You take the role of Geralt of Rivia, a monster-slaying witcher seeking his adoptive daughter who is pursued by the terrifying Wild Hunt.\n\n[b][size=4][color=#3b82f6]Comprehensive RPG Evaluation Metrics[/color][/size][/b]\nBelow is an in-depth breakdown of our gameplay and production evaluation:\n\n[table]\n[tr]\n[th]Metric Evaluated[/th]\n[th]Score Indicator[/th]\n[th]Verdict Remarks[/th]\n[/tr]\n[tr]\n[td][b]Graphics & Visuals[/b][/td]\n[td][color=#34d399]9.8 / 10[/color][/td]\n[td]Breathtaking sunrises, realistic wind sway foliage, and superb character animations.[/td]\n[/tr]\n[tr]\n[td][b]Storyline & Narrative[/b][/td]\n[td][color=#34d399]10.0 / 10[/color][/td]\n[td]Incredible quest lines. Even trivial side contracts contain tragic world building.[/td]\n[/tr]\n[tr]\n[td][b]Combat Mechanics[/b][/td]\n[td][color=#fbbf24]8.5 / 10[/color][/td]\n[td]Fluid sign casting and dodging, though swordplay lock-on can occasionally feel floaty.[/td]\n[/tr]\n[tr]\n[td][b]Soundtrack & Acoustics[/b][/td]\n[td][color=#34d399]10.0 / 10[/color][/td]\n[td]Incredible Slavic folk instruments, intense battle vocals, and stellar vocal talents.[/td]\n[/tr]\n[/table]\n\n[b][size=4][color=#c084fc]Critical Strengths & Limitations[/color][/size][/b]\n[list]\n[*] [b]Pro:[/b] Unbelievably deep choices which lead to drastically different world conditions.\n[*] [b]Pro:[/b] Memorable multi-dimensional companions (Yennefer, Ciri, Triss, Bloody Baron).\n[*] [b]Con:[/b] Stash inventory menus can get slow and cluttered during long adventures.\n[*] [b]Con:[/b] Water traversal and underwater cross-bow aiming are less refined than land controls.\n[/list]\n\n[center][b][size=4]Final Universal Rating: [color=#34d399]9.6 / 10[/color][/size][/b][/center]`,
+                size: 2048,
+                date: "6/27/2026"
+            },
+            {
+                id: "mock-dune-movie",
+                filename: "movie_dune_part_two_epic.txt",
+                title: "Dune: Part Two Movie Review",
+                category: "Movies",
+                content: `[b][center][size=6][color=#22d3ee]DUNE: PART TWO[/color][/size]\n[size=3][i]Denis Villeneuve's Definitive Sci-Fi Masterwork[/i][/size][/center][/b]\n\n[quote]“He who can destroy a thing, controls a thing.” — Paul Atreides[/quote]\n\nThe ultimate cinematic odyssey of 2024 has officially landed on the burning sands of Arrakis. [b]Dune: Part Two[/b] is not merely a high-budget sequel; it represents an epochal crowning achievement for science-fiction film-making, masterfully capturing the core philosophical warnings of Frank Herbert's timeless classic.\n\n[b][size=4][color=#22d3ee]Cinematographic & Technical Production Matrix[/color][/size][/b]\nHere is our detailed metric tracking of the blockbuster's technical delivery:\n\n[table]\n[tr]\n[th]Cinematic Category[/th]\n[th]Rating Grade[/th]\n[th]Key Highlights & Discoveries[/th]\n[/tr]\n[tr]\n[td][b]Visual Composition[/b][/td]\n[td][color=#34d399]5.0 / 5.0[/color][/td]\n[td]Greig Fraser delivers stellar framing, monolithic scale, and iconic monochromatic Harkonnen battles.[/td]\n[/tr]\n[tr]\n[td][b]Sound Design & Score[/b][/td]\n[td][color=#34d399]5.0 / 5.0[/color][/td]\n[td]Hans Zimmer's soundtrack rattles theater seats with deep industrial horns and wind beats.[/td]\n[/tr]\n[tr]\n[td][b]Acting Performances[/b][/td]\n[td][color=#34d399]4.8 / 5.0[/color][/td]\n[td]Timothée Chalamet is sensational. Austin Butler's Feyd-Rautha is a chilling, psychopathic force.[/td]\n[/tr]\n[/table]\n\n[b][size=4]Core Themes & Adaptation Fidelity[/size][/b]\nVilleneuve boldly underscores the dark aspects of Herbert's text. Instead of celebrating Paul Atreides as a common superhero, the cinema reveals the terrifying weight of religious extremism and engineered prophecy. It warns the masses of the dangers of charismatic, absolute leaders.\n\n[list]\n[*] [b]Visual Masterstroke:[/b] Watching Paul harness and ride the colossal Shai-Hulud sandworm is a theater marvel.\n[*] [b]Acoustic Immersion:[/b] Best felt in high-fidelity IMAX environments where audio vibrates directly in your chest.\n[*] [b]Pacing Mechanics:[/b] Despite spanning almost three hours, the desert intrigue keeps tension beautifully wired.\n[/list]\n\n[center][b][size=4]Sensory Cinematic Rating: [color=#34d399]A+ (9.8 / 10)[/color][/size][/b][/center]`,
+                size: 2190,
+                date: "6/27/2026"
+            },
+            {
+                id: "mock-midnight-library-book",
+                filename: "the_midnight_library_book_review.txt",
+                title: "The Midnight Library Book Review",
+                category: "Books",
+                content: `[b][center][size=6][color=#f472b6]THE MIDNIGHT LIBRARY[/color][/size]\n[size=3][i]A Poignant Exploration of Regret, Choices, and True Living[/i][/size][/center][/b]\n\n[quote]“You don't have to understand life, you just have to live it.” — Matt Haig[/quote]\n\nWritten with stunning emotional clarity by Matt Haig, [b]The Midnight Library[/b] explores the heavy, life-altering nature of regret. We follow Nora Seed, a brilliant but deeply depressed young woman who reaches a critical breaking point. Rather than sliding into nonexistence, she wakes up in a cosmic library where every single book represents an alternate path she could have walked.\n\n[b][size=4][color=#f472b6]Literary Indicators & Analytical Metrics[/color][/size][/b]\nReview evaluation scores based on structural narrative and pacing:\n\n[table]\n[tr]\n[th]Evaluation Criteria[/th]\n[th]Score Grade[/th]\n[th]Literary Observations & Remarks[/th]\n[/tr]\n[tr]\n[td][b]Character Growth[/b][/td]\n[td][color=#34d399]8.8 / 10[/color][/td]\n[td]Nora's slow crawl out of profound paralysis into simple appreciation of existence is wonderfully written.[/td]\n[/tr]\n[tr]\n[td][b]Pacing & Reading Speed[/b][/td]\n[td][color=#34d399]9.2 / 10[/color][/td]\n[td]Snappy, poetic chapters maintain highly rapid page turns. Unnecessarily repetitive in the middle cycles.[/td]\n[/tr]\n[tr]\n[td][b]Thematic Clarity[/b][/td]\n[td][color=#34d399]10.0 / 10[/color][/td]\n[td]Provides tremendous therapeutic value, tackling severe depression and perfect life illusions with grace.[/td]\n[/tr]\n[/table]\n\n[b][size=4]Essential Philosophical Takeaways[/size][/b]\nThe midnight volume explores several life-affirming theories:\n[list]\n[*] [b]The Illusion of Completeness:[/b] There is no single "perfect" version of your life. Every path brings unique sorrows.\n[*] [b]The Magic of Small Things:[/b] Nora discovers that grand careers pale in weight to genuine warm coffee chats and nature.\n[*] [b]Authentic Representation:[/b] Handled with absolute empathy, reflecting Matt Haig's lived struggles with acute anxiety.\n[/list]\n\n[center][b][size=4]Library Recommendation Verdict: [color=#f472b6]9.0 / 10 (Outstanding)[/color][/size][/b][/center]`,
+                size: 1956,
+                date: "6/27/2026"
+            }
+        ];
+
+        // Central System State Repositories
+        let REVIEWS_DATA = [];
+        let ACTIVE_CATEGORY = "All";
+        let SEARCH_FILTER = "";
+        let SORT_BY = "date-desc";
+        
+        // Circular Buffers for Undo triggers
+        let DELETED_REVIEWS_BUFFER = null;
+        let CURRENT_EDITING_ID = null;
+        let CUSTOM_CATEGORIES_REPOS = ["Gaming", "Movies", "Books", "General"];
+
+        // JWT Token session holder for secure authentication operations
+        let ADMIN_JWT_TOKEN = localStorage.getItem("vault_jwt_token") || null;
+
+        // BBCode Parser Core Engine
+        function parseBBCodeToHTML(rawText) {
+            if (!rawText) return "";
+            
+            // Safe escape of HTML structure tags to prevent XSS injection
+            let html = rawText
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
+            // Tables structured conversion rules
+            html = html.replace(/\[table\]/gi, '<div class="table-container"><table>');
+            html = html.replace(/\[\/table\]/gi, '</table></div>');
+            html = html.replace(/\[tr\]/gi, '<tr>');
+            html = html.replace(/\[\/tr\]/gi, '</tr>');
+            html = html.replace(/\[th\]/gi, '<th>');
+            html = html.replace(/\[\/th\]/gi, '</th>');
+            html = html.replace(/\[td\]/gi, '<td>');
+            html = html.replace(/\[\/td\]/gi, '</td>');
+
+            // Typography formatting rules
+            html = html.replace(/\[subtitle\]/gi, '<span class="bbcode-subtitle">');
+            html = html.replace(/\[\/subtitle\]/gi, '</span>');
+            html = html.replace(/\[b\]/gi, '<strong>');
+            html = html.replace(/\[\/b\]/gi, '</strong>');
+            html = html.replace(/\[i\]/gi, '<em>');
+            html = html.replace(/\[\/i\]/gi, '</em>');
+            html = html.replace(/\[u\]/gi, '<u>');
+            html = html.replace(/\[\/u\]/gi, '</u>');
+            html = html.replace(/\[center\]/gi, '<div class="text-center">');
+            html = html.replace(/\[\/center\]/gi, '</div>');
+            html = html.replace(/\[quote\]/gi, '<blockquote>');
+            html = html.replace(/\[\/quote\]/gi, '</blockquote>');
+
+            // Bullets lists parsing
+            html = html.replace(/\[list\]/gi, '<ul>');
+            html = html.replace(/\[\/list\]/gi, '</ul>');
+            // Process individual bullet points safely
+            html = html.replace(/\[\*\](.*?)(\n|(?=\[\*\])|(?=\[\/list\]))/gi, '<li>$1</li>');
+
+            // Font sizing mapping (1-7 responsive map, others as direct px values)
+            html = html.replace(/\[size=([^\]]+)\]/gi, (match, param) => {
+                let val = param.trim();
+                if (/^[1-7]$/.test(val)) {
+                    const sizeMapping = {
+                        '1': '0.75rem', '2': '0.85rem', '3': '1rem',
+                        '4': '1.25rem', '5': '1.5rem', '6': '2.25rem', '7': '3rem'
+                    };
+                    return `<span style="font-size: ${sizeMapping[val]}; line-height: 1.35; display: inline-block;">`;
+                } else {
+                    if (!isNaN(val)) return `<span style="font-size: ${val}px; line-height: 1.35; display: inline-block;">`;
+                    return `<span style="font-size: ${val}; line-height: 1.35; display: inline-block;">`;
+                }
+            });
+            html = html.replace(/\[\/size\]/gi, '</span>');
+
+            // Semantic Color configurations
+            html = html.replace(/\[color=([^\]]+)\]/gi, (match, colorVal) => {
+                let cleanColor = colorVal.trim();
+                // Ensure safe hex or named color value
+                if (/^[a-zA-Z0-9#,() \-%]+$/.test(cleanColor)) {
+                    return `<span style="color: ${cleanColor};">`;
+                }
+                return `<span>`;
+            });
+            html = html.replace(/\[\/color\]/gi, '</span>');
+
+            // Auto Embed URLs
+            html = html.replace(/\[url=([^\]]+)\](.*?)\[\/url\]/gi, (match, url, label) => {
+                let cleanUrl = url.trim();
+                if (/^(https?:\/\/|\/)/i.test(cleanUrl)) {
+                    return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="bbcode-link">${label}</a>`;
+                }
+                return label;
+            });
+
+            // Clean lines breaks and split paragraphs
+            let paragraphs = html.split(/\n\s*\n/);
+            paragraphs = paragraphs.map(p => {
+                if (p.includes('<table') || p.includes('<div class="table-container"')) {
+                    return p.replace(/>\s*\n\s*</g, '><'); // Strip linebreaks inside columns elements
+                } else if (p.startsWith('<ul>') || p.startsWith('<ol>')) {
+                    return p;
+                } else {
+                    return `<p>${p.replace(/\n/g, '<br>')}</p>`;
+                }
+            });
+            html = paragraphs.join('');
+
+            // Safe cleanup of stray empty blocks and breaks
+            html = html.replace(/<p>\s*<\/p>/g, '');
+            html = html.replace(/(<table>|<tr>|<td>|<th>|<\/table>|<\/tr>|<\/td>|<\/th>)\s*<br\s*\/?>/gi, '$1');
+            html = html.replace(/<br\s*\/?>\s*(<tr>|<td>|<th>|<\/table>|<\/tr>|<\/td>|<\/th>)/gi, '$1');
+            html = html.replace(/<p>\s*(<div class="table-container">.*?<\/div>)\s*<\/p>/g, '$1');
+
+            return html;
+        }
+
+        // Clip text safely to construct smooth dashboard card previews
+        function createCleanSnippet(rawText, limit = 140) {
+            if (!rawText) return "";
+            let clearDraft = rawText.replace(/\[\/?[^\]]+\]/g, ' ');
+            clearDraft = clearDraft.replace(/\s+/g, ' ').trim();
+            if (clearDraft.length > limit) {
+                return clearDraft.slice(0, limit) + "...";
+            }
+            return clearDraft;
+        }
+
+        // SVG string Deterministic Geometric thumbnail builder
+        function generateGeometricSVG(title, category) {
+            let hash = 0;
+            for (let i = 0; i < title.length; i++) {
+                hash = title.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            hash = Math.abs(hash);
+
+            // Deterministic colors
+            const hue1 = hash % 360;
+            const hue2 = (hash + 130) % 360;
+            const sat = 72 + (hash % 12);
+            const light = 22 + (hash % 8);
+
+            let emoji = "📝";
+            let startColor = `hsl(${hue1}, ${sat}%, ${light}%)`;
+            let endColor = `hsl(${hue2}, ${sat}%, ${light - 6}%)`;
+
+            if (category === "Gaming") emoji = "🎮";
+            else if (category === "Movies") emoji = "🎬";
+            else if (category === "Books") emoji = "📚";
+
+            // Draw abstract patterns based on division
+            const count = 5 + (hash % 5);
+            let patterns = "";
+            const formType = hash % 4;
+
+            if (formType === 0) {
+                for (let k = 0; k < count; k++) {
+                    const cx = 30 + ((hash * (k + 1)) % 140);
+                    const cy = 25 + ((hash * (k + 2)) % 70);
+                    const r = 8 + ((hash * (k + 3)) % 22);
+                    patterns += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="white" fill-opacity="0.02" stroke="white" stroke-width="1.1" stroke-opacity="0.07" />`;
+                }
+            } else if (formType === 1) {
+                const ox = 50 + (hash % 100);
+                const oy = 30 + (hash % 60);
+                for (let k = 0; k < count * 2; k++) {
+                    const angle = (k * Math.PI) / count;
+                    const dx = ox + Math.cos(angle) * 170;
+                    const dy = oy + Math.sin(angle) * 170;
+                    patterns += `<line x1="${ox}" y1="${oy}" x2="${dx}" y2="${dy}" stroke="white" stroke-width="0.8" stroke-opacity="0.08" />`;
+                }
+            } else if (formType === 2) {
+                for (let k = 0; k < count; k++) {
+                    const r = 16 + k * 14;
+                    patterns += `<circle cx="100" cy="60" r="${r}" fill="none" stroke="white" stroke-width="1.1" stroke-opacity="${0.035 + k * 0.015}" />`;
+                }
+            } else {
+                for (let k = 0; k < count; k++) {
+                    const spacer = k * 28;
+                    patterns += `<line x1="${spacer}" y1="0" x2="${spacer - 60}" y2="120" stroke="white" stroke-width="0.8" stroke-opacity="0.05" />`;
+                    patterns += `<line x1="0" y1="${spacer}" x2="200" y2="${spacer + 15}" stroke="white" stroke-width="0.8" stroke-opacity="0.05" />`;
+                }
+            }
+
+            // Capital initials (token abbreviations)
+            const initials = title
+                .split(/[\s_-]+/)
+                .filter(w => w)
+                .map(w => w[0])
+                .join("")
+                .substring(0, 3)
+                .toUpperCase();
+
+            return `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" class="card-svg-bg" style="background: linear-gradient(135deg, ${startColor}, ${endColor});">
+                <defs>
+                    <radialGradient id="thumb-glow-${hash}" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="white" stop-opacity="0.14" />
+                        <stop offset="100%" stop-color="white" stop-opacity="0" />
+                    </radialGradient>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#thumb-glow-${hash})" />
+                ${patterns}
+                <g transform="translate(100, 60)">
+                    <circle cx="0" cy="0" r="26" fill="rgba(9, 9, 11, 0.55)" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
+                    <text x="0" y="-3" text-anchor="middle" font-size="20" style="user-select:none;">${emoji}</text>
+                    <text x="0" y="15" text-anchor="middle" fill="#ffffff" font-weight="800" font-size="10" font-family="system-ui" letter-spacing="1.5" opacity="0.9" style="user-select:none;">${initials}</text>
+                </g>
+            </svg>
+            `;
+        }
+
+        // Dynamic category overrides dropdown populator
+        function populateEditorCategoriesDropdown() {
+            const selectEl = document.getElementById("comp-category");
+            if (!selectEl) return;
+            selectEl.innerHTML = "";
+            CUSTOM_CATEGORIES_REPOS.forEach(cat => {
+                let emoji = "🏷️";
+                if (cat === "Gaming") emoji = "🎮";
+                else if (cat === "Movies") emoji = "🎬";
+                else if (cat === "Books") emoji = "📚";
+                else if (cat === "General") emoji = "📝";
+                selectEl.insertAdjacentHTML("beforeend", `<option value="${cat}">${cat} ${emoji}</option>`);
+            });
+        }
+
+        // Initialize Vault from actual Node backend database
+        async function bootstrapVaultDatabase() {
+            try {
+                // Fetch dynamic Categories
+                const catRes = await fetch('/api/categories');
+                if (catRes.ok) {
+                    CUSTOM_CATEGORIES_REPOS = await catRes.json();
+                }
+                populateEditorCategoriesDropdown();
+
+                // Fetch dynamic Reviews Writeups
+                const revRes = await fetch('/api/reviews');
+                if (revRes.ok) {
+                    REVIEWS_DATA = await revRes.json();
+                }
+
+                recomputeStatisticsDashboard();
+                renderCategoryFilterPills();
+                renderActiveGridDashboard();
+            } catch (e) {
+                console.error("Error communicating with fullstack server API", e);
+                createDynamicActionToast("Disconnection error: Failed to fetch data from backend server.", false);
+            }
+        }
+
+        function persistReviewsToCache() {
+            // Managed seamlessly on actual mutations via Backend database!
+            console.log("State synced with server database.");
+        }
+
+        // Update indicators
+        function recomputeStatisticsDashboard() {
+            document.getElementById("kpi-total-files").innerText = REVIEWS_DATA.length;
+            const cats = new Set(REVIEWS_DATA.map(r => r.category));
+            document.getElementById("kpi-categories").innerText = cats.size;
+
+            let wordSum = 0, byteSum = 0;
+            REVIEWS_DATA.forEach(r => {
+                wordSum += (r.content || "").split(/\s+/).filter(w => w).length;
+                byteSum += r.size || 0;
+            });
+
+            document.getElementById("kpi-words").innerText = wordSum.toLocaleString();
+            if (byteSum >= 1024 * 1024) {
+                document.getElementById("kpi-storage").innerText = (byteSum / (1024 * 1024)).toFixed(2) + " MB";
+            } else {
+                document.getElementById("kpi-storage").innerText = (byteSum / 1024).toFixed(1) + " KB";
+            }
+        }
+
+        // Render categories badges filters pills list dynamised
+        function renderCategoryFilterPills() {
+            const container = document.getElementById("category-pills-container");
+            if (!container) return;
+
+            const counts = { All: REVIEWS_DATA.length };
+            CUSTOM_CATEGORIES_REPOS.forEach(c => counts[c] = 0);
+
+            REVIEWS_DATA.forEach(r => {
+                const normCat = CUSTOM_CATEGORIES_REPOS.includes(r.category) ? r.category : (CUSTOM_CATEGORIES_REPOS[0] || "General");
+                if (counts[normCat] !== undefined) counts[normCat]++;
+            });
+
+            const colorPresets = {
+                "Gaming": { bg: "var(--category-gaming-bg)", text: "var(--category-gaming)", glow: "rgba(251, 191, 36, 0.15)", border: "rgba(251, 191, 36, 0.3)", emoji: "🎮" },
+                "Movies": { bg: "var(--category-movies-bg)", text: "var(--category-movies)", glow: "rgba(34, 211, 238, 0.15)", border: "rgba(34, 211, 238, 0.3)", emoji: "🎬" },
+                "Books": { bg: "var(--category-books-bg)", text: "var(--category-books)", glow: "rgba(244, 114, 182, 0.15)", border: "rgba(244, 114, 182, 0.3)", emoji: "📚" },
+                "General": { bg: "var(--category-general-bg)", text: "var(--category-general)", glow: "rgba(52, 211, 153, 0.15)", border: "rgba(52, 211, 153, 0.3)", emoji: "📝" }
+            };
+
+            let htmlString = "";
+            const isAllActive = ACTIVE_CATEGORY === "All";
+            const allStyles = isAllActive ? `--active-pill-color:var(--text-primary); --active-pill-bg:var(--bg-surface); --active-pill-glow:rgba(255,255,255,0.04); --active-pill-border:var(--border-hover);` : ``;
+            htmlString += `<button class="pill ${isAllActive ? "active" : ""}" style="${allStyles}" onclick="setFilteredCategory('All')">All Items 📁 <span class="pill-count">${counts["All"]}</span></button>`;
+
+            CUSTOM_CATEGORIES_REPOS.forEach(cat => {
+                const config = colorPresets[cat] || {
+                    bg: "rgba(192, 132, 252, 0.08)", text: "var(--accent)", glow: "rgba(192, 132, 252, 0.15)", border: "rgba(192, 132, 252, 0.3)", emoji: "🏷"
+                };
+
+                const isActive = ACTIVE_CATEGORY === cat;
+                const inlineStyles = isActive ? `--active-pill-color:${config.text}; --active-pill-bg:${config.bg}; --active-pill-glow:${config.glow}; --active-pill-border:${config.border};` : ``;
+                htmlString += `<button class="pill ${isActive ? "active" : ""}" style="${inlineStyles}" onclick="setFilteredCategory('${cat}')">${cat} ${config.emoji} <span class="pill-count">${counts[cat] || 0}</span></button>`;
+            });
+
+            container.innerHTML = htmlString;
+        }
+
+        window.setFilteredCategory = function(catName) {
+            ACTIVE_CATEGORY = catName;
+            renderCategoryFilterPills();
+            renderActiveGridDashboard();
+        };
+
+        // Render Active Grid Dashboard Cards
+        function renderActiveGridDashboard() {
+            const grid = document.getElementById("main-cards-dashboard");
+            const emptyState = document.getElementById("empty-state-panel");
+            if (!grid) return;
+
+            let projected = REVIEWS_DATA.filter(rev => {
+                const catMatch = (ACTIVE_CATEGORY === "All" || rev.category === ACTIVE_CATEGORY);
+                let searchMatch = true;
+                if (SEARCH_FILTER) {
+                    const phrase = SEARCH_FILTER.toLowerCase();
+                    searchMatch = (rev.title || "").toLowerCase().includes(phrase) || 
+                                  (rev.filename || "").toLowerCase().includes(phrase) || 
+                                  (rev.content || "").toLowerCase().includes(phrase);
+                }
+                return (catMatch && searchMatch);
+            });
+
+            projected.sort((a, b) => {
+                if (SORT_BY === "title-asc") return a.title.localeCompare(b.title);
+                if (SORT_BY === "title-desc") return b.title.localeCompare(a.title);
+                if (SORT_BY === "size-asc") return a.size - b.size;
+                if (SORT_BY === "size-desc") return b.size - a.size;
+                const parsedA = Date.parse(a.date) || 0;
+                const parsedB = Date.parse(b.date) || 0;
+                return parsedB - parsedA || REVIEWS_DATA.indexOf(b) - REVIEWS_DATA.indexOf(a);
+            });
+
+            if (projected.length === 0) {
+                grid.style.display = "none";
+                emptyState.style.display = "flex";
+                return;
+            } else {
+                grid.style.display = "grid";
+                emptyState.style.display = "none";
+            }
+
+            const themeBindings = {
+                "Gaming": { border: "var(--category-gaming)", glow: "rgba(251, 191, 36, 0.22)", text: "var(--category-gaming)", bg: "var(--category-gaming-bg)" },
+                "Movies": { border: "var(--category-movies)", glow: "rgba(34, 211, 238, 0.22)", text: "var(--category-movies)", bg: "var(--category-movies-bg)" },
+                "Books": { border: "var(--category-books)", glow: "rgba(244, 114, 182, 0.22)", text: "var(--category-books)", bg: "var(--category-books-bg)" },
+                "General": { border: "var(--category-general)", glow: "rgba(52, 211, 153, 0.22)", text: "var(--category-general)", bg: "var(--category-general-bg)" }
+            };
+
+            grid.innerHTML = "";
+            projected.forEach(rev => {
+                const config = themeBindings[rev.category] || themeBindings["General"];
+                const shortSnippet = createCleanSnippet(rev.content);
+                const readableSize = rev.size >= 1024 ? (rev.size / 1024).toFixed(1) + " KB" : rev.size + " B";
+                const cardHeaderThumbnailSvg = generateGeometricSVG(rev.title, rev.category);
+
+                let thumbnailMarkup = cardHeaderThumbnailSvg;
+                if (rev.thumbnail) {
+                    thumbnailMarkup = `<img src="${rev.thumbnail}" class="card-svg-bg" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'"/>`;
+                }
+
+                const cardMarkup = `
+                <div class="card" style="--hover-card-border: ${config.border}; --hover-card-glow: ${config.glow};" onclick="openFullscreenLightbox('${rev.id}', event)">
+                    <div class="card-thumbnail-header" style="position:relative;">
+                        ${rev.thumbnail ? `<div style="position:absolute; inset:0; z-index:0; background:rgba(0,0,0,0.25); pointer-events:none;"></div>` : ''}
+                        ${thumbnailMarkup}
+                    </div>
+                    <div class="card-body">
+                        <div class="card-meta-row">
+                            <span class="card-badge" style="--badge-color: ${config.text}; --badge-bg: ${config.bg};">${rev.category}</span>
+                            <span class="card-size">${readableSize}</span>
+                        </div>
+                        <h3 class="card-title" title="${rev.title}">${rev.title}</h3>
+                        <p class="card-snippet">${shortSnippet}</p>
+                        <div class="card-footer">
+                            <span class="card-filename" title="${rev.filename}">${rev.filename}</span>
+                            <div class="card-actions">
+                                <button class="card-btn card-btn-delete" title="Delete Writeup" onclick="deleteReviewCard('${rev.id}', event)">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                </button>
+                                <button class="card-btn" title="Open Fullscreen Viewer Overlay">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+                grid.insertAdjacentHTML("beforeend", cardMarkup);
+            });
+        }
+
+        // Delete Writeup Element Card (Server Synchronized)
+        window.deleteReviewCard = async function(id, event) {
+            if (event) event.stopPropagation();
+            if (!ADMIN_JWT_TOKEN) {
+                createDynamicActionToast("Error: Access denied. Please login to perform operations.", false);
+                return;
+            }
+
+            const confirmDel = confirm("Are you sure you want to permanently delete this review writeup from your server database?");
+            if (!confirmDel) return;
+
+            try {
+                const res = await fetch(`/api/reviews/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${ADMIN_JWT_TOKEN}` }
+                });
+                if (res.ok) {
+                    const deleted = await res.json();
+                    createDynamicActionToast(`Archived writeup "${deleted.title}" successfully deleted.`, false);
+                    bootstrapVaultDatabase(); // Dynamic full UI update reload!
+                } else {
+                    const err = await res.json();
+                    createDynamicActionToast(err.error || "Error: Failed to delete writeup.", false);
+                }
+            } catch(e) {
+                createDynamicActionToast("Server connection failure.", false);
+            }
+        };
+
+        // Create alert notifications
+        window.createDynamicActionToast = function(msg, allowUndo = false) {
+            const container = document.getElementById("toast-wrapper");
+            if (!container) return;
+
+            const toastId = "toast-" + Date.now() + "-" + Math.floor(Math.random() * 1000);
+            const undoBtnHtml = allowUndo ? `<button class="toast-undo-btn" onclick="executeUndoRestore('${toastId}')">Undo</button>` : "";
+
+            const toastHTML = `
+            <div class="toast" id="${toastId}">
+                <div class="toast-content">
+                    <svg fill="currentColor" viewBox="0 0 24 24" style="color: var(--primary);">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                    </svg>
+                    <span class="toast-message">${msg}</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:0.5rem;">
+                    ${undoBtnHtml}
+                    <button class="toast-close-btn" onclick="dismissToastElement('${toastId}')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width:14px; height:14px;">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            `;
+
+            container.insertAdjacentHTML("beforeend", toastHTML);
+
+            setTimeout(() => {
+                dismissToastElement(toastId);
+            }, 6000);
+        };
+
+        window.executeUndoRestore = function(toastId) {
+            if (DELETED_REVIEWS_BUFFER) {
+                const element = DELETED_REVIEWS_BUFFER.review;
+                const positionIdx = DELETED_REVIEWS_BUFFER.index;
+
+                REVIEWS_DATA.splice(positionIdx, 0, element);
+                persistReviewsToCache();
+                
+                recomputeStatisticsDashboard();
+                renderCategoryFilterPills();
+                renderActiveGridDashboard();
+
+                DELETED_REVIEWS_BUFFER = null;
+                dismissToastElement(toastId);
+                createDynamicActionToast("Writeup fully restored to Vault location.", false);
+            }
+        };
+
+        window.dismissToastElement = function(toastId) {
+            const el = document.getElementById(toastId);
+            if (el) {
+                el.style.opacity = "0";
+                el.style.transition = "opacity 0.22s ease";
+                setTimeout(() => el.remove(), 220);
+            }
+        };
+
+        // Bulk files FileReader integration engine (Server Synchronized)
+        function runBulkFilesUpload(filesList) {
+            if (!filesList || filesList.length === 0) return;
+            if (!ADMIN_JWT_TOKEN) {
+                createDynamicActionToast("Error: Access denied. Please toggle Admin Session to import files.", false);
+                return;
+            }
+
+            let filesReadCount = 0;
+            let successUploadCount = 0;
+
+            Array.from(filesList).forEach(file => {
+                const partsName = file.name.split(".");
+                const extension = partsName.pop().toLowerCase();
+
+                if (extension !== "txt" && extension !== "bbcode") {
+                    createDynamicActionToast(`Skipped "${file.name}": Unsupported format type.`, false);
+                    filesReadCount++;
+                    if (filesReadCount === filesList.length) {
+                        finalizeBulkImportAction(successUploadCount);
+                    }
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const textValue = event.target.result;
+                    const rawCleanName = partsName.join(".");
+
+                    // Normalize Title string Case
+                    let normalized = rawCleanName.replace(/[_-]+/g, " ");
+                    let derivedTitle = normalized
+                        .split(/\s+/)
+                        .filter(word => word)
+                        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                        .join(" ");
+
+                    // Keyword auto categorization matcher
+                    let derivedCategory = "General";
+                    const aggregateText = String(file.name + " " + textValue).toLowerCase();
+
+                    if (/(game|gaming|playstation|xbox|nintendo|rpg|fps|combat|gamers)/i.test(aggregateText)) {
+                        derivedCategory = "Gaming";
+                    } else if (/(movie|film|cinema|show|season|episode|hollywood)/i.test(aggregateText)) {
+                        derivedCategory = "Movies";
+                    } else if (/(book|books|novel|literature|read|author|poetry)/i.test(aggregateText)) {
+                        derivedCategory = "Books";
+                    }
+
+                    const payload = {
+                        title: derivedTitle,
+                        category: derivedCategory,
+                        filename: file.name,
+                        content: textValue,
+                        thumbnail: ""
+                    };
+
+                    // Post review details directly to backend database server
+                    fetch('/api/reviews', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${ADMIN_JWT_TOKEN}`
+                        },
+                        body: JSON.stringify(payload)
+                    }).then(res => {
+                        if (res.ok) {
+                            successUploadCount++;
+                        } else {
+                            createDynamicActionToast(`Skipped "${file.name}": Server rejection.`, false);
+                        }
+                    }).catch(() => {
+                        createDynamicActionToast(`Skipped "${file.name}": Network upload error.`, false);
+                    }).finally(() => {
+                        filesReadCount++;
+                        if (filesReadCount === filesList.length) {
+                            finalizeBulkImportAction(successUploadCount);
+                        }
+                    });
+                };
+
+                reader.readAsText(file);
+            });
+        }
+
+        function finalizeBulkImportAction(count) {
+            if (count > 0) {
+                bootstrapVaultDatabase(); // Dynamic UI reload! Syncs with actual server database.
+                createDynamicActionToast(`Successfully imported & committed ${count} writeups to server vault!`, false);
+            }
+        }
+
+        // Direct manual writeup entries (Server Synchronized)
+        window.insertManualCreatedReview = async function(title, category, filename, body, thumbnail) {
+            if (!title) return;
+            if (!ADMIN_JWT_TOKEN) {
+                createDynamicActionToast("Error: Authorization failed. Please toggle Admin Session.", false);
+                return;
+            }
+
+            let checkFilename = filename ? filename.trim() : title.trim().toLowerCase().replace(/\s+/g, "_") + ".bbcode";
+            if (!checkFilename.endsWith(".txt") && !checkFilename.endsWith(".bbcode")) {
+                checkFilename += ".bbcode";
+            }
+
+            const rawContent = body || "";
+            const thumbSrc = thumbnail || "";
+
+            const payload = {
+                title: title.trim(),
+                category: category || "General",
+                filename: checkFilename,
+                content: rawContent,
+                thumbnail: thumbSrc
+            };
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${ADMIN_JWT_TOKEN}`
+            };
+
+            try {
+                if (CURRENT_EDITING_ID) {
+                    const res = await fetch(`/api/reviews/${CURRENT_EDITING_ID}`, {
+                        method: 'PUT',
+                        headers: headers,
+                        body: JSON.stringify(payload)
+                    });
+                    if (res.ok) {
+                        const updated = await res.json();
+                        createDynamicActionToast(`Review "${updated.title}" successfully updated on server!`, false);
+                        CURRENT_EDITING_ID = null;
+                        bootstrapVaultDatabase(); // UI reload!
+                    } else {
+                        const err = await res.json();
+                        createDynamicActionToast(err.error || "Error: Failed to save changes.", false);
+                    }
+                } else {
+                    const res = await fetch('/api/reviews', {
+                        method: 'POST',
+                        headers: headers,
+                        body: JSON.stringify(payload)
+                    });
+                    if (res.ok) {
+                        const created = await res.json();
+                        createDynamicActionToast(`Review "${created.title}" successfully published and recorded!`, false);
+                        bootstrapVaultDatabase(); // UI reload!
+                    } else {
+                        const err = await res.json();
+                        createDynamicActionToast(err.error || "Error: Failed to publish review.", false);
+                    }
+                }
+            } catch(e) {
+                createDynamicActionToast("Connection failure with backend server APIs.", false);
+            }
+        };
+
+        // Lightbox Screen viewing controller
+        let currentViewingReview = null;
+
+        window.openFullscreenLightbox = function(id, event) {
+            const rev = REVIEWS_DATA.find(r => r.id === id);
+            if (!rev) return;
+
+            currentViewingReview = rev;
+
+            document.getElementById("modal-review-title").innerText = rev.title;
+            document.getElementById("modal-review-filename").innerText = rev.filename;
+            document.getElementById("modal-footer-size-tag").innerText = `Length: ${rev.size >= 1024 ? (rev.size / 1024).toFixed(1) + " KB" : rev.size + " B"}`;
+            document.getElementById("modal-footer-date-tag").innerText = `Added: ${rev.date}`;
+
+            const badgeElement = document.getElementById("modal-footer-category-tag");
+            badgeElement.innerText = rev.category;
+
+            const logoToken = document.getElementById("modal-badge-token");
+            logoToken.innerText = rev.title.split(/[\s_-]+/).filter(w => w).map(w => w[0]).join("").substring(0, 3).toUpperCase();
+
+            // Set dynamic banner style mapping colors glow
+            const classesTheme = {
+                "Gaming": { text: "var(--category-gaming)", bg: "var(--category-gaming-bg)" },
+                "Movies": { text: "var(--category-movies)", bg: "var(--category-movies-bg)" },
+                "Books": { text: "var(--category-books)", bg: "var(--category-books-bg)" },
+                "General": { text: "var(--category-general)", bg: "var(--category-general-bg)" }
+            };
+            const config = classesTheme[rev.category] || classesTheme["General"];
+            badgeElement.style.setProperty("--badge-color", config.text);
+            badgeElement.style.setProperty("--badge-bg", config.bg);
+            logoToken.style.setProperty("--tab-head-color", config.text);
+            logoToken.style.setProperty("--tab-head-bg", config.bg);
+
+            // Parse content
+            const renderedHtml = parseBBCodeToHTML(rev.content);
+            document.getElementById("modal-styled-content-box").innerHTML = renderedHtml;
+
+            document.getElementById("review-viewer-modal").classList.add("active");
+            document.body.style.overflow = "hidden";
+        };
+
+        window.closeFullscreenLightbox = function() {
+            document.getElementById("review-viewer-modal").classList.remove("active");
+            document.body.style.overflow = "";
+            currentViewingReview = null;
+        };
+
+        function downloadCurrentReviewFile() {
+            if (!currentViewingReview) return;
+            const a = document.createElement("a");
+            const file = new Blob([currentViewingReview.content], { type: "text/plain;charset=utf-8" });
+            a.href = URL.createObjectURL(file);
+            a.download = currentViewingReview.filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        // Live compiling preview compiler
+        window.updateLiveComposerPreview = function() {
+            const rawContent = document.getElementById("comp-content").value;
+            const titleValue = document.getElementById("comp-title").value.trim() || "Untitled Review Post";
+            const catValue = document.getElementById("comp-category").value;
+            const thumbUrlValue = document.getElementById("comp-thumb-url").value.trim();
+
+            const renderedHtml = parseBBCodeToHTML(rawContent);
+            const previewBox = document.getElementById("comp-live-preview");
+            if (previewBox) {
+                // Determine layout HSL background based on title string
+                let hash = 0;
+                for (let i = 0; i < titleValue.length; i++) hash = titleValue.charCodeAt(i) + ((hash << 5) - hash);
+                hash = Math.abs(hash);
+                const hue = hash % 360;
+                const emoji = catValue === "Gaming" ? "🎮" : (catValue === "Movies" ? "🎬" : (catValue === "Books" ? "📚" : "📝"));
+                const startColor = `hsl(${hue}, 70%, 25%)`;
+
+                let visualThumbnailMarkup = `
+                <div style="aspect-ratio:16/9; width:100%; border-radius:var(--radius-md); background:linear-gradient(135deg, ${startColor}, #121214); display:flex; align-items:center; justify-content:center; border:1px solid var(--border); overflow:hidden; position:relative; margin-bottom:1.5rem;">
+                    <div style="font-size:1.75rem;">${emoji}</div>
+                    <div style="font-size:0.8rem; font-weight:800; color:white; margin-left:0.5rem; letter-spacing:0.1em; opacity:0.9;">GENERATED DEFAULT HEADER</div>
+                </div>
+                `;
+
+                if (thumbUrlValue) {
+                    visualThumbnailMarkup = `
+                    <div style="aspect-ratio:16/9; width:100%; border-radius:var(--radius-md); border:1px solid var(--border); overflow:hidden; position:relative; margin-bottom:1.5rem;">
+                        <img src="${thumbUrlValue}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.opacity='0.25'"/>
+                        <div style="position:absolute; inset:0; background:rgba(0,0,0,0.55); display:flex; align-items:center; justify-content:center;">
+                            <span style="font-size:0.75rem; font-weight:800; color:white; letter-spacing:0.1em; background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:4px;">CUSTOM THUMBNAIL COVER ART</span>
+                        </div>
+                    </div>
+                    `;
+                }
+
+                // Compile visual layout
+                previewBox.innerHTML = `
+                    <div style="border-bottom:1px dashed var(--border-hover); padding-bottom:1rem; margin-bottom:1.5rem;">
+                        ${visualThumbnailMarkup}
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                            <span class="card-badge" style="display:inline-flex;">${catValue}</span>
+                        </div>
+                        <h2 style="font-size:1.4rem; font-weight:800; letter-spacing:-0.02em; line-height:1.3; margin-bottom:0.25rem; color:var(--text-primary);">${titleValue}</h2>
+                        <p style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono);">Live interactive rendering console...</p>
+                    </div>
+                    <div>
+                        ${renderedHtml || "<p style='color:var(--text-muted); font-style:italic;'>Type some BBCode annotations on the left editor to view complete visual description...</p>"}
+                    </div>
+                `;
+            }
+        };
+
+        // Custom Categories Manager logic (Add, rename, delete, and re-assign posts categories)
+        window.renderCategoriesManagerDashboard = function() {
+            const listContainer = document.getElementById("cat-manager-list");
+            const assListContainer = document.getElementById("posts-assigner-list-container");
+            if (!listContainer || !assListContainer) return;
+
+            // Part 1: Render dynamic categories lists edit row
+            listContainer.innerHTML = "";
+            CUSTOM_CATEGORIES_REPOS.forEach((cat, index) => {
+                const count = REVIEWS_DATA.filter(r => r.category === cat).length;
+                const inputId = `rename-cat-field-${index}`;
+                
+                // Allow deleting only if there is at least one category remaining
+                const allowDelete = CUSTOM_CATEGORIES_REPOS.length > 1;
+                const deleteBtnHtml = allowDelete ? `
+                <button class="card-btn card-btn-delete" title="Delete Category" onclick="deleteCustomCategoryValue('${cat}')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width:14px; height:14px;"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                </button>` : "";
+
+                const rowMarkup = `
+                <div class="cat-manager-row">
+                    <div style="display:flex; align-items:center; gap:0.5rem; flex-grow:1;">
+                        <input type="text" id="${inputId}" class="form-input" style="padding: 0.35rem 0.65rem; font-size: 0.825rem; font-weight:600; width: 140px; background: rgba(255,255,255,0.01);" value="${cat}" onchange="renameCustomCategoryValue('${cat}', '${inputId}')" title="Change name inline and hit enter/click rename">
+                        <span class="cat-manager-posts-count">${count} writeups</span>
+                    </div>
+                    <div class="cat-manager-actions">
+                        <button class="btn" style="padding:0.35rem 0.65rem; font-size: 0.725rem; font-weight:700;" onclick="renameCustomCategoryValue('${cat}', '${inputId}')">Rename</button>
+                        ${deleteBtnHtml}
+                    </div>
+                </div>
+                `;
+                listContainer.insertAdjacentHTML("beforeend", rowMarkup);
+            });
+
+            // Part 2: Render Posts Category Dropdown re-assigners
+            assListContainer.innerHTML = "";
+            if (REVIEWS_DATA.length === 0) {
+                assListContainer.innerHTML = "<p style='color:var(--text-muted); font-size:0.8rem; font-style:italic; text-align:center;'>No writeup logs inside Vault database currently.</p>";
+                return;
+            }
+
+            REVIEWS_DATA.forEach((rev, index) => {
+                const selectId = `reassign-select-${index}`;
+                let optionsMarkup = "";
+                
+                CUSTOM_CATEGORIES_REPOS.forEach(cat => {
+                    const isSelected = rev.category === cat ? "selected" : "";
+                    optionsMarkup += `<option value="${cat}" ${isSelected}>${cat}</option>`;
+                });
+
+                const postAssignMarkup = `
+                <div class="post-assign-item">
+                    <span class="post-assign-title" title="${rev.title}">${rev.title}</span>
+                    <select id="${selectId}" class="post-assign-select" onchange="reassignReviewPostToCategory('${rev.id}', '${selectId}')" title="Choose category">
+                        ${optionsMarkup}
+                    </select>
+                </div>
+                `;
+                assListContainer.insertAdjacentHTML("beforeend", postAssignMarkup);
+            });
+        };
+
+        // Add Category element (Server Synchronized)
+        window.addNewCategoryValue = async function() {
+            const inputVal = document.getElementById("new-cat-input").value.trim();
+            if (!inputVal) {
+                createDynamicActionToast("Warning: Category label cannot be empty.", false);
+                return;
+            }
+            if (!ADMIN_JWT_TOKEN) {
+                createDynamicActionToast("Error: Access denied. Login required.", false);
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/categories', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${ADMIN_JWT_TOKEN}`
+                    },
+                    body: JSON.stringify({ name: inputVal })
+                });
+
+                if (res.ok) {
+                    document.getElementById("new-cat-input").value = "";
+                    createDynamicActionToast(`Category "${inputVal}" added successfully!`, false);
+                    bootstrapVaultDatabase(); // Dynamic UI reload!
+                    setTimeout(() => renderCategoriesManagerDashboard(), 150);
+                } else {
+                    const err = await res.json();
+                    createDynamicActionToast(err.error || "Failed to create category.", false);
+                }
+            } catch(e) {
+                createDynamicActionToast("Category synchronization failed.", false);
+            }
+        };
+
+        // Rename Category value globally (Server Synchronized)
+        window.renameCustomCategoryValue = async function(oldName, inputId) {
+            const inputEl = document.getElementById(inputId);
+            if (!inputEl) return;
+            const newName = inputEl.value.trim();
+            
+            if (!newName) {
+                createDynamicActionToast("Warning: Category label cannot be empty.", false);
+                inputEl.value = oldName;
+                return;
+            }
+            if (oldName === newName) return;
+            if (!ADMIN_JWT_TOKEN) {
+                createDynamicActionToast("Error: Access denied. Login required.", false);
+                inputEl.value = oldName;
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/categories/rename', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${ADMIN_JWT_TOKEN}`
+                    },
+                    body: JSON.stringify({ oldName, newName })
+                });
+
+                if (res.ok) {
+                    createDynamicActionToast(`Renamed "${oldName}" Category to "${newName}" globally!`, false);
+                    bootstrapVaultDatabase(); // Dynamic UI reload!
+                    setTimeout(() => renderCategoriesManagerDashboard(), 150);
+                } else {
+                    const err = await res.json();
+                    createDynamicActionToast(err.error || "Failed to rename category.", false);
+                    inputEl.value = oldName;
+                }
+            } catch(e) {
+                createDynamicActionToast("Renaming synchronization failed.", false);
+                inputEl.value = oldName;
+            }
+        };
+
+        // Delete custom category elements globally (Server Synchronized)
+        window.deleteCustomCategoryValue = async function(catName) {
+            if (CUSTOM_CATEGORIES_REPOS.length <= 1) {
+                createDynamicActionToast("Error: At least one category must exist inside portfolio vault.", false);
+                return;
+            }
+            if (!ADMIN_JWT_TOKEN) {
+                createDynamicActionToast("Error: Access denied. Login required.", false);
+                return;
+            }
+
+            const confirmD = confirm(`Are you sure you want to permanently delete category "${catName}"? Matching reviews will fall back automatically.`);
+            if (!confirmD) return;
+
+            try {
+                const res = await fetch(`/api/categories/${encodeURIComponent(catName)}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${ADMIN_JWT_TOKEN}` }
+                });
+                if (res.ok) {
+                    createDynamicActionToast(`Category "${catName}" removed. Matching reviews reclassified.`, false);
+                    if (ACTIVE_CATEGORY === catName) ACTIVE_CATEGORY = "All";
+                    bootstrapVaultDatabase(); // Dynamic UI reload!
+                    setTimeout(() => renderCategoriesManagerDashboard(), 200);
+                } else {
+                    const err = await res.json();
+                    createDynamicActionToast(err.error || "Failed to delete category.", false);
+                }
+            } catch(e) {
+                createDynamicActionToast("Connection to server failed.", false);
+            }
+        };
+
+        // Inline direct selector re-asignment mappings
+        window.reassignReviewPostToCategory = async function(postId, selectId) {
+            const selectEl = document.getElementById(selectId);
+            if (!selectEl) return;
+            const newCat = selectEl.value;
+
+            const reviewItem = REVIEWS_DATA.find(r => r.id === postId);
+            if (reviewItem) {
+                const oldCat = reviewItem.category;
+                if (oldCat === newCat) return;
+
+                if (!ADMIN_JWT_TOKEN) {
+                    createDynamicActionToast("Error: Access denied. Login required.", false);
+                    selectEl.value = oldCat;
+                    return;
+                }
+
+                try {
+                    const res = await fetch(`/api/reviews/${postId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${ADMIN_JWT_TOKEN}`
+                        },
+                        body: JSON.stringify({
+                            title: reviewItem.title,
+                            category: newCat,
+                            filename: reviewItem.filename,
+                            content: reviewItem.content,
+                            thumbnail: reviewItem.thumbnail
+                        })
+                    });
+
+                    if (res.ok) {
+                        createDynamicActionToast(`Re-classified review "${reviewItem.title}" to category "${newCat}"!`, false);
+                        bootstrapVaultDatabase(); // Dynamic UI reload!
+                        setTimeout(() => renderCategoriesManagerDashboard(), 150);
+                    } else {
+                        const err = await res.json();
+                        createDynamicActionToast(err.error || "Failed to reclassify writeup.", false);
+                        selectEl.value = oldCat;
+                    }
+                } catch(e) {
+                    createDynamicActionToast("Network syncing failed.", false);
+                    selectEl.value = oldCat;
+                }
+            }
+        };
+
+        // Selection wrapping tools
+        window.wrapTextSelection = function(startTag, endTag) {
+            const textarea = document.getElementById("comp-content");
+            if (!textarea) return;
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const text = textarea.value;
+            const selected = text.substring(start, end);
+            const replacement = startTag + selected + endTag;
+            
+            textarea.value = text.substring(0, start) + replacement + text.substring(end);
+            textarea.focus();
+            textarea.selectionStart = start + startTag.length;
+            textarea.selectionEnd = start + startTag.length + selected.length;
+        };
+
+        window.insertBBCodeSnippet = function(type) {
+            const textarea = document.getElementById("comp-content");
+            if (!textarea) return;
+
+            let snippet = "";
+            if (type === "table") {
+                snippet = `\n[table]\n[tr]\n[th]Feature Category[/th]\n[th]Visual Metric[/th]\n[th]Verdict Remarks[/th]\n[/tr]\n[tr]\n[td][b]Sample Parameter 1[/b][/td]\n[td][color=#34d399]Excellent[/color][/td]\n[td]High-fidelity visuals with optimized shadows.[/td]\n[/tr]\n[tr]\n[td][b]Sample Parameter 2[/b][/td]\n[td][color=#fbbf24]Average[/color][/td]\n[td]Pacing drags during the second act.[/td]\n[/tr]\n[/table]\n`;
+            } else if (type === "list") {
+                snippet = `\n[list]\n[*] [b]Primary Strengths:[/b] Fluid controls, deep lore.\n[*] [b]Refinement Areas:[/b] Lengthy inventory management.\n[/list]\n`;
+            }
+
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const text = textarea.value;
+
+            textarea.value = text.substring(0, start) + snippet + text.substring(end);
+            textarea.focus();
+            textarea.selectionStart = start + snippet.length;
+            textarea.selectionEnd = start + snippet.length;
+        };
+
+        // DOM Initializations listeners
+        document.addEventListener("DOMContentLoaded", () => {
+            bootstrapVaultDatabase();
+
+            // Admin session bootstrap handlers (JWT Verified)
+            async function updateAdminModeState() {
+                if (!ADMIN_JWT_TOKEN) {
+                    document.body.classList.remove("admin-logged-in");
+                    document.getElementById("admin-toggle-btn").innerText = "🔒 Reader Mode";
+                    document.getElementById("admin-toggle-btn").style.background = "rgba(255, 255, 255, 0.02)";
+                    document.getElementById("admin-toggle-btn").style.borderColor = "var(--border)";
+                    return;
+                }
+
+                try {
+                    const res = await fetch('/api/auth/verify', {
+                        headers: { 'Authorization': `Bearer ${ADMIN_JWT_TOKEN}` }
+                    });
+                    const data = await res.json();
+
+                    if (data.authenticated) {
+                        document.body.classList.add("admin-logged-in");
+                        document.getElementById("admin-toggle-btn").innerText = "🔑 Admin Session";
+                        document.getElementById("admin-toggle-btn").style.background = "rgba(59, 130, 246, 0.15)";
+                        document.getElementById("admin-toggle-btn").style.borderColor = "var(--primary)";
+                    } else {
+                        // Clean invalidated token
+                        localStorage.removeItem("vault_jwt_token");
+                        ADMIN_JWT_TOKEN = null;
+                        document.body.classList.remove("admin-logged-in");
+                        document.getElementById("admin-toggle-btn").innerText = "🔒 Reader Mode";
+                        document.getElementById("admin-toggle-btn").style.background = "rgba(255, 255, 255, 0.02)";
+                        document.getElementById("admin-toggle-btn").style.borderColor = "var(--border)";
+                    }
+                } catch(e) {
+                    console.error("Verification connection error.", e);
+                }
+            }
+            updateAdminModeState();
+
+            // Admin Toggle controller check (Server Auth login)
+            document.getElementById("admin-toggle-btn").addEventListener("click", async () => {
+                if (document.body.classList.contains("admin-logged-in")) {
+                    localStorage.removeItem("vault_jwt_token");
+                    ADMIN_JWT_TOKEN = null;
+                    await updateAdminModeState();
+                    createDynamicActionToast("Logged out of Admin Session. Vault is now read-only.", false);
+                } else {
+                    const passcode = prompt("Enter Admin Passcode to Unlock Writing/Editing Rights:\n(Enter your passcode)");
+                    if (passcode === null) return;
+                    
+                    try {
+                        const res = await fetch('/api/auth/login', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ password: passcode })
+                        });
+
+                        const data = await res.json();
+                        if (res.ok && data.token) {
+                            localStorage.setItem("vault_jwt_token", data.token);
+                            ADMIN_JWT_TOKEN = data.token;
+                            await updateAdminModeState();
+                            createDynamicActionToast("Access granted! Publishing and editing tools activated.", false);
+                        } else {
+                            createDynamicActionToast(data.error || "Access denied! Invalid Admin Passcode.", false);
+                        }
+                    } catch(e) {
+                        createDynamicActionToast("Authentication server offline.", false);
+                    }
+                }
+            });
+
+            // Categories Management triggers
+            const catDrawer = document.getElementById("categories-manager-drawer");
+            document.getElementById("trigger-categories-btn").addEventListener("click", () => {
+                if (!document.body.classList.contains("admin-logged-in")) return;
+                renderCategoriesManagerDashboard();
+                catDrawer.classList.add("active");
+                overlay.classList.add("active");
+            });
+
+            const closeCatDrawer = () => {
+                catDrawer.classList.remove("active");
+                overlay.classList.remove("active");
+            };
+            document.getElementById("cat-drawer-close-cross").addEventListener("click", closeCatDrawer);
+            document.getElementById("add-cat-btn").addEventListener("click", addNewCategoryValue);
+
+            const dropArea = document.getElementById("drop-zone-area");
+            if (!dropArea) return;
+
+            // Drag over transitions highlights page
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(evt => {
+                window.addEventListener(evt, e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }, false);
+            });
+
+            ['dragenter', 'dragover'].forEach(evt => {
+                window.addEventListener(evt, () => {
+                    dropArea.classList.add('dragover');
+                }, false);
+            });
+
+            ['dragleave', 'drop'].forEach(evt => {
+                window.addEventListener(evt, () => {
+                    dropArea.classList.remove('dragover');
+                }, false);
+            });
+
+            window.addEventListener('drop', e => {
+                const dt = e.dataTransfer;
+                if (dt && dt.files.length > 0) {
+                    runBulkFilesUpload(dt.files);
+                }
+            }, false);
+
+            // Drag file input trigger click
+            dropArea.addEventListener("click", () => {
+                document.getElementById("bulk-file-input").click();
+            });
+
+            document.getElementById("bulk-file-input").addEventListener("change", e => {
+                runBulkFilesUpload(e.target.files);
+            });
+
+            // Search filtering keys
+            const searchBar = document.getElementById("search-bar");
+            const searchClear = document.getElementById("search-clear-trigger");
+
+            searchBar.addEventListener("input", e => {
+                SEARCH_FILTER = e.target.value;
+                searchClear.style.display = SEARCH_FILTER ? "flex" : "none";
+                renderActiveGridDashboard();
+            });
+
+            searchClear.addEventListener("click", () => {
+                searchBar.value = "";
+                SEARCH_FILTER = "";
+                searchClear.style.display = "none";
+                searchBar.focus();
+                renderActiveGridDashboard();
+            });
+
+            // Cards sorting order selects
+            document.getElementById("sort-cards-select").addEventListener("change", e => {
+                SORT_BY = e.target.value;
+                renderActiveGridDashboard();
+            });
+
+            document.getElementById("restore-presets-btn").addEventListener("click", () => {
+                REVIEWS_DATA = [...FACTORY_DEFAULT_REVIEWS];
+                persistReviewsToCache();
+                recomputeStatisticsDashboard();
+                renderCategoryFilterPills();
+                renderActiveGridDashboard();
+                createDynamicActionToast("Factory default reviews successfully restored.", false);
+            });
+
+            document.getElementById("trigger-upload-btn").addEventListener("click", () => {
+                document.getElementById("bulk-file-input").click();
+            });
+
+            // Modal viewer activations closures
+            document.getElementById("modal-close-cross").addEventListener("click", () => {
+                closeFullscreenLightbox();
+            });
+
+            document.getElementById("review-viewer-modal").addEventListener("click", e => {
+                if (e.target.id === "review-viewer-modal") {
+                    closeFullscreenLightbox();
+                }
+            });
+
+            window.addEventListener("keydown", e => {
+                if (e.key === "Escape") {
+                    closeFullscreenLightbox();
+                    document.getElementById("manual-creator-drawer").classList.remove("active");
+                    document.getElementById("drawer-overlaybg").classList.remove("active");
+                }
+            });
+
+            // Clipboard copy handle codes
+            document.getElementById("modal-copy-bbcode").addEventListener("click", () => {
+                if (!currentViewingReview) return;
+                navigator.clipboard.writeText(currentViewingReview.content).then(() => {
+                    createDynamicActionToast("BBCode copied to Clipboard buffer!", false);
+                }).catch(() => {
+                    createDynamicActionToast("Error syncing clipboard data.", false);
+                });
+            });
+
+            // Built-in review editor binder inside lightbox
+            document.getElementById("modal-edit-review").addEventListener("click", () => {
+                if (!currentViewingReview) return;
+
+                CURRENT_EDITING_ID = currentViewingReview.id;
+                document.getElementById("comp-title").value = currentViewingReview.title;
+                document.getElementById("comp-category").value = currentViewingReview.category;
+                document.getElementById("comp-filename").value = currentViewingReview.filename;
+                document.getElementById("comp-content").value = currentViewingReview.content;
+                document.getElementById("comp-thumb-url").value = currentViewingReview.thumbnail || "";
+                document.getElementById("comp-thumb-file").value = "";
+
+                document.querySelector("#manual-creator-drawer h2").innerText = `Edit Review: ${currentViewingReview.title} ✏️`;
+                document.getElementById("drawer-save-btn").innerText = "Update Review";
+
+                closeFullscreenLightbox();
+                updateLiveComposerPreview(); // Preload edits live!
+
+                drawer.classList.add("active");
+                overlay.classList.add("active");
+                document.getElementById("comp-title").focus();
+            });
+
+            // Real-time Autosave Draft controllers
+            function triggerDraftAutosave() {
+                if (CURRENT_EDITING_ID) return; // Do not auto-backup existing reviews edits
+                const draft = {
+                    title: document.getElementById("comp-title").value,
+                    category: document.getElementById("comp-category").value,
+                    filename: document.getElementById("comp-filename").value,
+                    content: document.getElementById("comp-content").value,
+                    thumbnail: document.getElementById("comp-thumb-url").value
+                };
+                localStorage.setItem("vault_autosaved_draft_v2", JSON.stringify(draft));
+            }
+            function clearAutosavedDraft() {
+                localStorage.removeItem("vault_autosaved_draft_v2");
+            }
+
+            // Live-type watch update composer previews & auto-backups immediately
+            const onEditorInputUpdate = () => {
+                updateLiveComposerPreview();
+                triggerDraftAutosave();
+            };
+            document.getElementById("comp-content").addEventListener("input", onEditorInputUpdate);
+            document.getElementById("comp-title").addEventListener("input", onEditorInputUpdate);
+            document.getElementById("comp-category").addEventListener("change", onEditorInputUpdate);
+            document.getElementById("comp-thumb-url").addEventListener("input", onEditorInputUpdate);
+
+            // Handle local file uploads statically to Express upload REST API (Multipart Form-Data)
+            document.getElementById("comp-thumb-file").addEventListener("change", async e => {
+                const file = e.target.files[0];
+                if (file) {
+                    if (!ADMIN_JWT_TOKEN) {
+                        createDynamicActionToast("Error: Authorization failed. Please login to upload images.", false);
+                        return;
+                    }
+                    createDynamicActionToast("Uploading product thumbnail to server storage...", false);
+
+                    const formData = new FormData();
+                    formData.append('thumbnail', file);
+
+                    try {
+                        const res = await fetch('/api/upload', {
+                            method: 'POST',
+                            headers: { 'Authorization': `Bearer ${ADMIN_JWT_TOKEN}` },
+                            body: formData
+                        });
+                        const data = await res.json();
+                        if (res.ok && data.url) {
+                            document.getElementById("comp-thumb-url").value = data.url;
+                            updateLiveComposerPreview(); // Pre-load splits review panel instantly!
+                            triggerDraftAutosave(); // Save draft after image upload
+                            createDynamicActionToast("Image saved on server directory successfully!", false);
+                        } else {
+                            createDynamicActionToast(data.error || "Failed to upload image.", false);
+                        }
+                    } catch(err) {
+                        createDynamicActionToast("Upload network connection failure.", false);
+                    }
+                }
+            });
+
+            // Toggle contrast modes inside lightbox
+            const styleBox = document.getElementById("modal-styled-content-box");
+            const contrastBtn = document.getElementById("modal-reader-theme");
+            let isLightContrast = false;
+
+            contrastBtn.addEventListener("click", () => {
+                isLightContrast = !isLightContrast;
+                if (isLightContrast) {
+                    styleBox.classList.add("reading-contrast-mode");
+                    contrastBtn.innerText = "💡 Contrast Dark";
+                } else {
+                    styleBox.classList.remove("reading-contrast-mode");
+                    contrastBtn.innerText = "💡 Contrast Light";
+                }
+            });
+
+            document.getElementById("modal-download-file").addEventListener("click", () => {
+                downloadCurrentReviewFile();
+            });
+
+            // Slidout Composer Drawer events binds
+            const drawer = document.getElementById("manual-creator-drawer");
+            const overlay = document.getElementById("drawer-overlaybg");
+
+            document.getElementById("trigger-draft-btn").addEventListener("click", () => {
+                CURRENT_EDITING_ID = null;
+                document.querySelector("#manual-creator-drawer h2").innerText = "Compose New Review ✍️";
+                document.getElementById("drawer-save-btn").innerText = "Store & File writeup";
+                document.getElementById("comp-thumb-url").value = "";
+                document.getElementById("comp-thumb-file").value = "";
+
+                // Retrieve and restore working autosaves if available
+                const savedDraftModel = localStorage.getItem("vault_autosaved_draft_v2");
+                if (savedDraftModel) {
+                    try {
+                        const draft = JSON.parse(savedDraftModel);
+                        if (draft.title || draft.content) {
+                            const confirmRestore = confirm("📂 Recover Draft Alert:\nWe found an unsaved working draft in your browser cache. Do you want to restore your draft right now?");
+                            if (confirmRestore) {
+                                document.getElementById("comp-title").value = draft.title || "";
+                                document.getElementById("comp-category").value = draft.category || "Gaming";
+                                document.getElementById("comp-filename").value = draft.filename || "";
+                                document.getElementById("comp-content").value = draft.content || "";
+                                document.getElementById("comp-thumb-url").value = draft.thumbnail || "";
+                            }
+                        }
+                    } catch(err) {}
+                }
+
+                drawer.classList.add("active");
+                overlay.classList.add("active");
+                document.getElementById("comp-title").focus();
+                updateLiveComposerPreview();
+            });
+
+            const clearInputs = () => {
+                document.getElementById("comp-title").value = "";
+                document.getElementById("comp-category").value = "Gaming";
+                document.getElementById("comp-filename").value = "";
+                document.getElementById("comp-content").value = "";
+                document.getElementById("comp-thumb-url").value = "";
+                document.getElementById("comp-thumb-file").value = "";
+                drawer.classList.remove("active");
+                overlay.classList.remove("active");
+                closeCatDrawer();
+            };
+
+            document.getElementById("drawer-close-cross").addEventListener("click", () => {
+                clearInputs();
+                clearAutosavedDraft();
+            });
+            document.getElementById("drawer-cancel-btn").addEventListener("click", () => {
+                clearInputs();
+                clearAutosavedDraft();
+            });
+            overlay.addEventListener("click", () => {
+                clearInputs();
+                clearAutosavedDraft();
+            });
+
+            document.getElementById("drawer-save-btn").addEventListener("click", () => {
+                const title = document.getElementById("comp-title").value.trim();
+                const category = document.getElementById("comp-category").value;
+                const filename = document.getElementById("comp-filename").value.trim();
+                const body = document.getElementById("comp-content").value;
+                const thumbnail = document.getElementById("comp-thumb-url").value.trim();
+
+                if (!title) {
+                    createDynamicActionToast("Review Title is required to store.", false);
+                    return;
+                }
+
+                insertManualCreatedReview(title, category, filename, body, thumbnail);
+                clearInputs();
+                clearAutosavedDraft(); // Delete draft once successfully saved!
+            });
+        });
+    </script>
+</body>
+</html>
